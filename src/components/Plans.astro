@@ -43,8 +43,8 @@ const { title, subtitle, items } = Astro.props;
               >
                 {txt(`plans-group-free-plan[${i}].h3-free-plan`, item.title)}
               </h3>
-              <p class="u-heading price">
-                <span data-sy-reveal="words" {...f(`plans-group-free-plan[${i}].p-0month`, "number")}>{item.price.amount}</span>
+              <p class="u-heading price" {...f(`plans-group-free-plan[${i}].p-0month`, "number")}>
+                <span data-sy-reveal="words">${txt(`plans-group-free-plan[${i}].p-0month`, item.price.amount.replace(/^\$/, ""))}</span>
                 <span class="duration u-text" data-sy-reveal="words">
                   /{item.price.duration}
                 </span>

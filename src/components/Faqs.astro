@@ -14,6 +14,10 @@ interface Props {
 
 const { title, subtitle, mobileTitle, items } = Astro.props;
 const G = "group-who-is-this-platform";
+const heading = txt(
+  "h2-frequently-asked-questionsfaqs",
+  `<span>${title}</span><span aria-hidden>${mobileTitle}</span>`,
+).replace(/^\s*<h2[^>]*>([\s\S]*)<\/h2>\s*$/, "$1");
 const list = rows(
   G,
   items.map((i) => ({ "span-who-is-this-platform": i.question, "div-its-built-for-creators": i.answer })),
@@ -23,10 +27,12 @@ const list = rows(
 <sy-faqs>
   <div class="u-container container">
     <div class="content">
-      <h2 class="u-heading" data-sy-reveal="words">
-        <span>{title}</span>
-        <span aria-hidden>{mobileTitle}</span>
-      </h2>
+      <h2
+        class="u-heading"
+        data-sy-reveal="words"
+        {...f("h2-frequently-asked-questionsfaqs", "richtext")}
+        set:html={heading}
+      />
       <p
         class="u-text subtitle"
         data-sy-reveal="lines"

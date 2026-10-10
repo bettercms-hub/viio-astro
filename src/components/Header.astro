@@ -14,6 +14,7 @@ interface Props {
 
 const { logoUrl, logoAlt, link1, link2, links } = Astro.props;
 const nav = rows("nav-group-home", links);
+const icon = txt("nav-icon-icon", "");
 ---
 
 <header>
@@ -21,7 +22,7 @@ const nav = rows("nav-group-home", links);
     <div class="inner u-container">
       <div class="wrapper">
         <a class="logo" href={txt("nav-a-viio-href", logoUrl)} data-bcms-props="nav-a-viio-href|text|href">
-          <Logo {...f("nav-icon-icon", "image")} />
+          {icon && !icon.startsWith("data:") ? <img src={icon} alt="" {...f("nav-icon-icon", "image")} /> : <Logo {...f("nav-icon-icon", "image")} />}
           <span class="u-sr-only" {...f("nav-span-viio")}>{txt("nav-span-viio", logoAlt)}</span>
         </a>
 

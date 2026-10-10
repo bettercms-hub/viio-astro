@@ -71,7 +71,7 @@ const attrs =
 >
   <span>
     <span {...(fields ? f(fields[0]) : {})}>{fields ? txt(fields[0], title) : title}</span>
-    <span aria-hidden {...(fields?.[1] ? f(fields[1]) : {})}>{fields?.[1] ? txt(fields[1], title) : title}</span>
+    <span aria-hidden {...(fields ? f(fields[1] ?? fields[0]) : {})}>{fields ? txt(fields[1] ?? fields[0], title) : title}</span>
   </span>
 </Element>
 
