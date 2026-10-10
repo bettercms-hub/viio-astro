@@ -1,8 +1,7 @@
 ---
 import Button from "./Button.astro";
 import type { Link } from "../types";
-import bcmsHome from "../../bcms-content/home.json";
-import { bcms, bcmsStyleText } from "../bcms-content";
+import { txt, rich, f } from "../bcms-bind";
 
 interface Item {
   title: string;
@@ -29,19 +28,23 @@ const { title, subtitle, items } = Astro.props;
   <div class="u-container">
     <div data-gl-place data-gl-place-factor="1.5"></div>
 
-    <h2 class="u-heading title" data-sy-reveal="words">{title}</h2>
-    <p class="u-text subtitle" data-sy-reveal="lines">{subtitle}</p>
+    <h2 class="u-heading title" data-sy-reveal="words" {...f("plans-h2-plans-pricing")}>{txt("plans-h2-plans-pricing", title)}</h2>
+    <p class="u-text subtitle" data-sy-reveal="lines" {...f("plans-p-start-for-free-upgrade", "richtext")} set:html={rich("plans-p-start-for-free-upgrade", subtitle)} />
 
     <div class="plans">
       {
         items.map((item, i) => (
           <div class="plan">
             <div class="plan-inner">
-              <h3 class="u-text plan-title" data-sy-reveal="words">
-                {item.title}
+              <h3
+                class="u-text plan-title"
+                data-sy-reveal="words"
+                {...f(`plans-group-free-plan[${i}].h3-free-plan`)}
+              >
+                {txt(`plans-group-free-plan[${i}].h3-free-plan`, item.title)}
               </h3>
               <p class="u-heading price">
-                <span data-sy-reveal="words">{item.price.amount}</span>
+                <span data-sy-reveal="words" {...f(`plans-group-free-plan[${i}].p-0month`, "number")}>{item.price.amount}</span>
                 <span class="duration u-text" data-sy-reveal="words">
                   /{item.price.duration}
                 </span>
@@ -51,16 +54,16 @@ const { title, subtitle, items } = Astro.props;
                   <li
                     class:list={[!feat.disabled && "available"]}
                     data-sy-reveal="lines"
-                    data-bcms-field={`plans-group-free-plan[${i}].list-up-to-50-accounts[${j}]`}
-                    data-bcms-kind="text" data-bcms-style="2" style={bcmsStyleText(bcmsHome, `plans-group-free-plan[${i}].list-up-to-50-accounts[${j}]`)}
+                    {...f(`plans-group-free-plan[${i}].list-up-to-50-accounts[${j}]`)}
                   >
-                    {bcms(bcmsHome, `plans-group-free-plan[${i}].list-up-to-50-accounts[${j}]`, feat.title)}
+                    {txt(`plans-group-free-plan[${i}].list-up-to-50-accounts[${j}]`, feat.title)}
                   </li>
                 ))}
               </ul>
               <Button
                 {...item.link}
                 color={i === 0 ? "primary-alt" : "primary"}
+                fields={[`plans-group-free-plan[${i}].span-get-started-free`, `plans-group-free-plan[${i}].span-get-started-free-2`]}
               />
             </div>
           </div>

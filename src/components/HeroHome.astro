@@ -1,4 +1,5 @@
 ---
+import { txt, rich, img, rows, f } from "../bcms-bind";
 import type { Link } from "../types";
 import Button from "./Button.astro";
 
@@ -16,15 +17,18 @@ const { title, subtitle, cta } = Astro.props;
   <div class="u-container container">
     <div class="inner">
       <div class="content">
-        <h1 class="u-heading title" data-sy-reveal="words">{title}</h1>
+        <h1 class="u-heading title" data-sy-reveal="words" {...f("build-h1-build-faster-launch-smarter")}>{txt("build-h1-build-faster-launch-smarter", title)}</h1>
         {
           subtitle ? (
-            <p class="u-text subtitle" data-sy-reveal="lines">
-              {subtitle}
-            </p>
+            <p
+              class="u-text subtitle"
+              data-sy-reveal="lines"
+              {...f("build-p-viio-is-an-open", "richtext")}
+              set:html={rich("build-p-viio-is-an-open", subtitle)}
+            />
           ) : null
         }
-        {cta ? <Button {...cta} arrow class="cta" /> : null}
+        {cta ? <Button {...cta} arrow class="cta" fields={["nav-span-get-started"]} hrefField="nav-a-login-href" /> : null}
       </div>
       <div data-gl-place></div>
     </div>

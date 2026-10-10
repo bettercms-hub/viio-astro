@@ -1,4 +1,5 @@
 ---
+import { txt, f } from "../bcms-bind";
 type CommonProps = {
   class?: string;
   color?: "primary" | "primary-alt";
@@ -7,6 +8,10 @@ type CommonProps = {
   title: string;
   revealable?: boolean;
   manualReveal?: boolean;
+  /** CMS field paths for the label and, when it repeats, its second layer. */
+  fields?: [string, string?];
+  /** CMS field path of the link target. */
+  hrefField?: string;
 };
 
 type AnchorProps = {
@@ -34,6 +39,8 @@ const {
   arrow = false,
   revealable = true,
   manualReveal = false,
+  fields,
+  hrefField,
 } = Astro.props;
 
 const Element = url ? "a" : "button";
@@ -42,7 +49,7 @@ const attrs =
   Element === "a"
     ? {
         target,
-        href: url,
+        href: hrefField ? txt(hrefField, url ?? "") : url,
       }
     : {
         type,
@@ -58,12 +65,13 @@ const attrs =
     className.toString(),
   ]}
   {...attrs}
+  data-bcms-props={hrefField && url ? `${hrefField}|text|href` : undefined}
   data-sy-reveal={revealable ? "" : undefined}
   data-sy-reveal-manual={manualReveal ? "" : undefined}
 >
   <span>
-    <span>{title}</span>
-    <span aria-hidden>{title}</span>
+    <span {...(fields ? f(fields[0]) : {})}>{fields ? txt(fields[0], title) : title}</span>
+    <span aria-hidden {...(fields?.[1] ? f(fields[1]) : {})}>{fields?.[1] ? txt(fields[1], title) : title}</span>
   </span>
 </Element>
 

@@ -1,4 +1,5 @@
 ---
+import { txt, rich, rows, f } from "../bcms-bind";
 interface Item {
   question: string;
   answer: string;
@@ -12,6 +13,11 @@ interface Props {
 }
 
 const { title, subtitle, mobileTitle, items } = Astro.props;
+const G = "group-who-is-this-platform";
+const list = rows(
+  G,
+  items.map((i) => ({ "span-who-is-this-platform": i.question, "div-its-built-for-creators": i.answer })),
+);
 ---
 
 <sy-faqs>
@@ -21,12 +27,17 @@ const { title, subtitle, mobileTitle, items } = Astro.props;
         <span>{title}</span>
         <span aria-hidden>{mobileTitle}</span>
       </h2>
-      <p class="u-text subtitle" data-sy-reveal="lines">{subtitle}</p>
+      <p
+        class="u-text subtitle"
+        data-sy-reveal="lines"
+        {...f("p-quick-answers-to-the", "richtext")}
+        set:html={rich("p-quick-answers-to-the", subtitle)}
+      />
     </div>
 
     <div class="faqs">
       {
-        items.map((item, i) => (
+        list.map((_row, i) => (
           <div class="faq">
             <div class="question">
               <h3 class="u-text" id={`faq-header-${i}`}>
@@ -36,8 +47,12 @@ const { title, subtitle, mobileTitle, items } = Astro.props;
                   aria-controls={`faq-panel-${i}`}
                   aria-expanded="false"
                 >
-                  <span class="question-text" data-sy-reveal="words">
-                    {item["question"]}
+                  <span
+                    class="question-text"
+                    data-sy-reveal="words"
+                    {...f(`${G}[${i}].span-who-is-this-platform`)}
+                  >
+                    {txt(`${G}[${i}].span-who-is-this-platform`, items[i]?.question ?? "")}
                   </span>
                   <span />
                 </button>
@@ -49,7 +64,7 @@ const { title, subtitle, mobileTitle, items } = Astro.props;
               aria-labelledby={`faq-header-${i}`}
               hidden
             >
-              <div class="answer u-text">{item["answer"]}</div>
+              <div class="answer u-text" {...f(`${G}[${i}].div-its-built-for-creators`)}>{txt(`${G}[${i}].div-its-built-for-creators`, items[i]?.answer ?? "")}</div>
             </div>
           </div>
         ))

@@ -1,17 +1,31 @@
 ---
+import { txt, rows, f } from "../bcms-bind";
 interface Props {
   texts: string[];
   direction?: 1 | -1;
   class?: string;
+  group?: string;
+  leaf?: string;
 }
 
-const { texts, direction, class: className = "" } = Astro.props;
+const { texts, direction, class: className = "", group, leaf } = Astro.props;
+const list = group ? rows(group, texts) : texts;
 ---
 
 <sy-text-marquee data-dir={direction} class:list={[className]}>
   <div class="outer">
     <div class="inner">
-      {texts.map((t) => <div class="text">{t}</div>)}
+      {
+        list.map((_t, i) =>
+          group && leaf ? (
+            <div class="text" {...f(`${group}[${i}].${leaf}`)}>
+              {txt(`${group}[${i}].${leaf}`, texts[i] ?? "")}
+            </div>
+          ) : (
+            <div class="text">{texts[i]}</div>
+          ),
+        )
+      }
     </div>
   </div>
 </sy-text-marquee>

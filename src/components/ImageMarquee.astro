@@ -1,4 +1,5 @@
 ---
+import { txt, img, f } from "../bcms-bind";
 import type { Image } from "../types";
 
 interface Props {
@@ -7,14 +8,16 @@ interface Props {
 }
 
 const { images, direction } = Astro.props;
+// the CMS keys the logos in template order
+const FIELDS = ["img-logo-1", "img-logo-3", "img-logo-4", "img-logo-8", "img-logo-5", "img-logo-6", "img-logo-2", "img-logo-7"];
 ---
 
 <sy-image-marquee data-dir={direction}>
   <div class="inner">
     {
-      images.map((img) => (
+      images.map((image, i) => (
         <div class="img">
-          <img {...img} />
+          <img {...image} src={FIELDS[i] ? img(FIELDS[i], image.src) : image.src} alt={FIELDS[i] ? txt(`${FIELDS[i]}.altText`, image.alt) : image.alt} {...(FIELDS[i] ? f(FIELDS[i], "image") : {})} />
         </div>
       ))
     }

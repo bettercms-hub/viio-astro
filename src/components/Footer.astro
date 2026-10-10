@@ -1,6 +1,5 @@
 ---
-import bcmsHome from "../../bcms-content/home.json";
-import { bcms, bcmsStyleText } from "../bcms-content";
+import { txt, rich, f, rows } from "../bcms-bind";
 import Logo from "../assets/logo.svg";
 import type { Link } from "../types";
 
@@ -11,33 +10,40 @@ interface Props {
 }
 
 const { logoUrl, logoAlt, links } = Astro.props;
+const nav = rows("nav-group-home", links);
 ---
 
 <sy-footer>
   <footer>
     <div class="inner u-container">
       <div class="wrapper">
-        <a class="logo" href={logoUrl}>
-          <Logo />
+        <a class="logo" href={txt("nav-a-viio-href", logoUrl)} data-bcms-props="nav-a-viio-href|text|href">
+          <Logo {...f("footer-icon-icon", "image")} />
           <span class="u-sr-only">{logoAlt}</span>
         </a>
 
         <div class="menu">
           <ul>
             {
-              links.map((l) => (
+              nav.map((_l, i) => (
                 <li>
-                  <a href={l.url}>{l.title}</a>
+                  <a
+                    href={txt(`nav-group-home[${i}].a-home-href`, links[i]?.url ?? "/")}
+                    data-bcms-props={`nav-group-home[${i}].a-home-href|text|href`}
+                    {...f(`nav-group-home[${i}].a-home`)}
+                  >
+                    {txt(`nav-group-home[${i}].a-home`, links[i]?.title ?? "")}
+                  </a>
                 </li>
               ))
             }
           </ul>
         </div>
-        <p class="cp">© {new Date().getFullYear()} {logoAlt}</p>
+        <p class="cp" {...f("footer-p-2026-viio", "richtext")} set:html={rich("footer-p-2026-viio", `© ${new Date().getFullYear()} ${logoAlt}`)} />
       </div>
       <!-- Please don't remove this -->
       <div class="credit">
-        <a href={bcms(bcmsHome, "footer-a-created-by-sijad-href", "https://hashemian.me/")} data-bcms-field="footer-a-created-by-sijad" data-bcms-kind="text" data-bcms-props="footer-a-created-by-sijad-href|text|href" data-bcms-style="2" style={bcmsStyleText(bcmsHome, "footer-a-created-by-sijad")}>{bcms(bcmsHome, "footer-a-created-by-sijad", "Created by Sijad")}</a>
+        <a href={txt("footer-a-created-by-sijad-href", "https://hashemian.me/")} data-bcms-props="footer-a-created-by-sijad-href|text|href" {...f("footer-a-created-by-sijad")}>{txt("footer-a-created-by-sijad", "Created by Sijad")}</a>
       </div>
     </div>
   </footer>

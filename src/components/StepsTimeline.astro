@@ -1,4 +1,5 @@
 ---
+import { txt, rich, rows, f } from "../bcms-bind";
 interface Props {
   title: string;
   items: {
@@ -8,26 +9,38 @@ interface Props {
 }
 
 const { title, items } = Astro.props;
+const G = "group-set-up-in-minutes";
+const list = rows(
+  G,
+  items.map((i) => ({ "h3-set-up-in-minutes": i.title, "p-create-your-workspace-invite": i.text })),
+);
 ---
 
 <sy-steps-timeline>
   <div class="u-container container">
     <div class="wrapper">
       <div class="content">
-        <h2 class="u-heading title" data-sy-reveal="words">{title}</h2>
+        <h2 class="u-heading title" data-sy-reveal="words" {...f("h2-how-it-works")}>{txt("h2-how-it-works", title)}</h2>
       </div>
       <div class="items-wrapper">
         <div class="items">
           {
-            items.map((item, i) => (
+            list.map((_row, i) => (
               <div class:list={["item", i === 0 && "is-active"]}>
                 <div class="item-inner">
-                  <h3 class="u-heading item-title" data-sy-reveal="words">
-                    {item.title}
+                  <h3
+                    class="u-heading item-title"
+                    data-sy-reveal="words"
+                    {...f(`${G}[${i}].h3-set-up-in-minutes`)}
+                  >
+                    {txt(`${G}[${i}].h3-set-up-in-minutes`, items[i]?.title ?? "")}
                   </h3>
-                  <p class="u-text item-text" data-sy-reveal="lines">
-                    {item.text}
-                  </p>
+                  <p
+                    class="u-text item-text"
+                    data-sy-reveal="lines"
+                    {...f(`${G}[${i}].p-create-your-workspace-invite`, "richtext")}
+                    set:html={rich(`${G}[${i}].p-create-your-workspace-invite`, items[i]?.text ?? "")}
+                  />
                 </div>
               </div>
             ))

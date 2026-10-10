@@ -1,6 +1,5 @@
 ---
-import bcmsHome from "../../bcms-content/home.json";
-import { bcms, bcmsStyleText } from "../bcms-content";
+import { txt, f, rows } from "../bcms-bind";
 import Button from "./Button.astro";
 import Logo from "../assets/logo.svg";
 import type { Link } from "../types";
@@ -14,23 +13,30 @@ interface Props {
 }
 
 const { logoUrl, logoAlt, link1, link2, links } = Astro.props;
+const nav = rows("nav-group-home", links);
 ---
 
 <header>
   <sy-head>
     <div class="inner u-container">
       <div class="wrapper">
-        <a class="logo" href={logoUrl}>
-          <Logo />
-          <span class="u-sr-only">{logoAlt}</span>
+        <a class="logo" href={txt("nav-a-viio-href", logoUrl)} data-bcms-props="nav-a-viio-href|text|href">
+          <Logo {...f("nav-icon-icon", "image")} />
+          <span class="u-sr-only" {...f("nav-span-viio")}>{txt("nav-span-viio", logoAlt)}</span>
         </a>
 
         <div class="menu">
           <ul>
             {
-              links.map((l) => (
+              nav.map((_l, i) => (
                 <li>
-                  <a href={l.url}>{l.title}</a>
+                  <a
+                    href={txt(`nav-group-home[${i}].a-home-href`, links[i]?.url ?? "/")}
+                    data-bcms-props={`nav-group-home[${i}].a-home-href|text|href`}
+                    {...f(`nav-group-home[${i}].a-home`)}
+                  >
+                    {txt(`nav-group-home[${i}].a-home`, links[i]?.title ?? "")}
+                  </a>
                 </li>
               ))
             }
@@ -40,15 +46,20 @@ const { logoUrl, logoAlt, link1, link2, links } = Astro.props;
         <div class="buttons">
           {
             link1 ? (
-              <a class="login" href={link1.url}>
-                {link1.title}
+              <a
+                class="login"
+                href={txt("nav-a-login-href", link1.url)}
+                data-bcms-props="nav-a-login-href|text|href"
+                {...f("nav-a-login")}
+              >
+                {txt("nav-a-login", link1.title)}
               </a>
             ) : null
           }
-          {link2 ? <Button {...link2} revealable={false} /> : null}
+          {link2 ? <Button {...link2} revealable={false} fields={["nav-span-get-started"]} hrefField="nav-a-login-href" /> : null}
 
           <button type="button" class="toggle" aria-label="">
-            <span class="u-sr-only" data-bcms-field="nav-span-toggle-mobile-menu" data-bcms-kind="text" data-bcms-style="2" style={bcmsStyleText(bcmsHome, "nav-span-toggle-mobile-menu")}>{bcms(bcmsHome, "nav-span-toggle-mobile-menu", "Toggle Mobile Menu")}</span>
+            <span class="u-sr-only" {...f("nav-span-toggle-mobile-menu")}>{txt("nav-span-toggle-mobile-menu", "Toggle Mobile Menu")}</span>
             <span aria-hidden>
               <span></span>
               <span></span>

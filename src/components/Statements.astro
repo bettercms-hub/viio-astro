@@ -1,4 +1,5 @@
 ---
+import { txt, rich, rows, f } from "../bcms-bind";
 import RectReveal from "../components/RectReveal.astro";
 
 interface Props {
@@ -6,24 +7,33 @@ interface Props {
 }
 
 const { items } = Astro.props;
+const G = "for-group-for-modern-teams";
+const list = rows(
+  G,
+  items.map((i) => ({ "h2-for-modern-teams": i.title, "p-every-feature-is-designed": i.text })),
+);
 ---
 
 <div class="sy-statements">
   <RectReveal ignoreLast>
     {
-      items.map(({ title, text }, i) => (
+      list.map((_row, i) => (
         <div class="box">
           <div class="u-container">
             <div class="content">
               <h2
                 class="u-heading"
                 data-sy-reveal={i === 0 ? "words" : undefined}
+                {...f(`${G}[${i}].h2-for-modern-teams`)}
               >
-                {title}
+                {txt(`${G}[${i}].h2-for-modern-teams`, items[i]?.title ?? "")}
               </h2>
-              <p class="u-text" data-sy-reveal={i === 0 ? "lines" : undefined}>
-                {text}
-              </p>
+              <p
+                class="u-text"
+                data-sy-reveal={i === 0 ? "lines" : undefined}
+                {...f(`${G}[${i}].p-every-feature-is-designed`, "richtext")}
+                set:html={rich(`${G}[${i}].p-every-feature-is-designed`, items[i]?.text ?? "")}
+              />
             </div>
           </div>
         </div>

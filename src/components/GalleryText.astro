@@ -1,4 +1,5 @@
 ---
+import { txt, rich, f } from "../bcms-bind";
 import type { Link, Image } from "../types";
 import Button from "./Button.astro";
 import Gallery from "./Gallery.astro";
@@ -19,13 +20,13 @@ const { title, text, cta, images, marqueeTexts } = Astro.props;
 <div class="sy-gallery-text">
   <div class="u-container container">
     <div class="content">
-      <h2 class="u-heading title" data-sy-reveal="words">{title}</h2>
-      <p class="u-text text" data-sy-reveal="lines">{text}</p>
-      {cta ? <Button {...cta} arrow class="cta" /> : null}
+      <h2 class="u-heading title" data-sy-reveal="words" {...f("designed-h2-designed-for-teams-that")}>{txt("designed-h2-designed-for-teams-that", title)}</h2>
+      <p class="u-text text" data-sy-reveal="lines" {...f("designed-p-a-clean-interface-powerful", "richtext")} set:html={rich("designed-p-a-clean-interface-powerful", text ?? "")} />
+      {cta ? <Button {...cta} arrow class="cta" fields={["designed-span-try-it-today"]} /> : null}
     </div>
     <Gallery class="gallery" images={images} />
   </div>
-  <TextMarquee class="marquee" texts={marqueeTexts} direction={-1} />
+  <TextMarquee class="marquee" texts={marqueeTexts} direction={-1} group="designed-group-creative-firepower" leaf="div-creative-firepower" />
   <GradientBackground />
 </div>
 
