@@ -1,3 +1,7 @@
+html.is-embedded [data-sy-reveal] {
+  opacity: 1;
+}
+
 [data-sy-reveal="lines"],
 [data-sy-reveal="words"] {
   opacity: 0;

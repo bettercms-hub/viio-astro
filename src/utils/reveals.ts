@@ -217,6 +217,12 @@ addGlobalTicker(() => {
 });
 
 document.fonts.ready.then(() => {
+  // Inside the BetterCMS visual editor's frame the copy must stay plain and visible so it can be
+  // clicked and edited: no SplitText wrapping, no scroll reveal.
+  if (document.documentElement.classList.contains("is-embedded")) {
+    document.querySelectorAll("[data-sy-reveal]").forEach((el) => el.classList.add("is-in"));
+    return;
+  }
   document.querySelectorAll<HTMLHtmlElement>("[data-sy-reveal]").forEach((elem) => {
     if (elem.hasAttribute('data-sy-reveal-manual')) {
       const _fn = elem.dataset.syReveal as keyof typeof fns | undefined;

@@ -27,6 +27,9 @@ const title = `${_title}${titleSuffix}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      if (window.self !== window.top) document.documentElement.classList.add("is-embedded");
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Font cssVariable="--font-roboto-slab" preload />
     <Font cssVariable="--font-inter" preload />
