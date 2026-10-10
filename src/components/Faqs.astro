@@ -15,7 +15,7 @@ interface Props {
 const { title, subtitle, mobileTitle, items } = Astro.props;
 const G = "group-who-is-this-platform";
 const heading = txt(
-  "h2-frequently-asked-questionsfaqs",
+  "faqs-h2-frequently-asked-questions",
   `<span>${title}</span><span aria-hidden>${mobileTitle}</span>`,
 ).replace(/^\s*<h2[^>]*>([\s\S]*)<\/h2>\s*$/, "$1");
 const list = rows(
@@ -30,14 +30,14 @@ const list = rows(
       <h2
         class="u-heading"
         data-sy-reveal="words"
-        {...f("h2-frequently-asked-questionsfaqs", "richtext")}
+        {...f("faqs-h2-frequently-asked-questions", "richtext")}
         set:html={heading}
       />
       <p
         class="u-text subtitle"
         data-sy-reveal="lines"
-        {...f("p-quick-answers-to-the", "richtext")}
-        set:html={rich("p-quick-answers-to-the", subtitle)}
+        {...f("faqs-p-quick-answers-to-the", "richtext")}
+        set:html={rich("faqs-p-quick-answers-to-the", subtitle)}
       />
     </div>
 
