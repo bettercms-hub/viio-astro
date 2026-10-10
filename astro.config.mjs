@@ -3,10 +3,21 @@ import {
   defineConfig,
   fontProviders,
 } from "astro/config";
+import bettercms from "@bettercms-ai/astro";
+import node from "@astrojs/node";
 
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
+  adapter: node({ mode: "standalone" }),
+  integrations: [
+    bettercms({
+      apiUrl: "https://api.bettercms.ai",
+      workspace: "himanshu-sahu",
+      projectId: "YTyMFG37ZE4r2pTUgapeE",
+    }),
+  ],
   scopedStyleStrategy: 'where',
   fonts: [
     {

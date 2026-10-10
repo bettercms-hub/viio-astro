@@ -1,4 +1,6 @@
 ---
+import bcmsHome from "../../bcms-content/home.json";
+import { bcms } from "../bcms-content";
 import { Font } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -40,7 +42,7 @@ const title = `${_title}${titleSuffix}`;
     <a href="#main" class="skip-link">{t("accessibility.skip-to-content")}</a>
     <Header
       logoUrl="/"
-      logoAlt="VIIO"
+      logoAlt={bcms(bcmsHome, "nav-span-viio", "VIIO")}
       links={links}
       link1={{ title: "Login", url: "https://github.com/sijad/viio-astro" }}
       link2={{
@@ -51,7 +53,7 @@ const title = `${_title}${titleSuffix}`;
     <main id="main">
       <slot />
     </main>
-    <Footer logoUrl="/" logoAlt="VIIO" links={links} />
+    <Footer logoUrl="/" logoAlt={bcms(bcmsHome, "nav-span-viio", "VIIO")} links={links} />
     <SmoothScroll />
   </body>
 </html>

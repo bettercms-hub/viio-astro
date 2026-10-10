@@ -1,4 +1,7 @@
 ---
+import BcmsSections from "@bettercms-ai/astro/components/BcmsSections.astro";
+import bcmsHome from "../../bcms-content/home.json";
+import { bcms } from "../bcms-content";
 import Layout from "../layouts/Layout.astro";
 import HeroHome from "../components/HeroHome.astro";
 import TextMarquee from "../components/TextMarquee.astro";
@@ -23,26 +26,27 @@ import logo8 from "../assets/logoipsum-331.svg";
 ---
 
 <Layout title="Home">
-  <HeroHome
-    title="Build Faster. Launch Smarter."
-    subtitle="VIIO is an open-source Astro template that you can start using today. give VIIO a try!"
+  <BcmsSections page="home">
+  <Fragment slot="build"><HeroHome
+    title={bcms(bcmsHome, "build-h1-build-faster-launch-smarter", "Build Faster. Launch Smarter.")}
+    subtitle={bcms(bcmsHome, "build-p-viio-is-an-open", "VIIO is an open-source Astro template that you can start using today. give VIIO a try!")}
     cta={{
       title: "Get Started",
       url: "https://github.com/sijad/viio-astro",
     }}
-  />
+  /></Fragment>
 
-  <Introducing
-    title="A platform designed to turn ideas into impact"
-    text="From first concept to final delivery, our tools streamline collaboration, eliminate bottlenecks, and keep your team focused on what matters most: results. Simple to adopt, powerful at scale."
+  <Fragment slot="sec1"><Introducing
+    title={bcms(bcmsHome, "sec1-h2-a-platform-designed-to", "A platform designed to turn ideas into impact")}
+    text={bcms(bcmsHome, "sec1-p-from-first-concept-to", "From first concept to final delivery, our tools streamline collaboration, eliminate bottlenecks, and keep your team focused on what matters most: results. Simple to adopt, powerful at scale.")}
     cta={{
       title: "Get Started",
       url: "#",
     }}
-  />
+  /></Fragment>
 
-  <StepsTimeline
-    title="How it works"
+  <Fragment slot="group-set-up-in-minutes"><StepsTimeline
+    title={bcms(bcmsHome, "h2-how-it-works", "How it works")}
     items={[
       {
         title: "Set up in minutes",
@@ -57,11 +61,11 @@ import logo8 from "../assets/logoipsum-331.svg";
         text: "Track progress in real time, optimize workflows, and ship projects faster with complete visibility.",
       },
     ]}
-  />
+  /></Fragment>
 
-  <GalleryText
-    title="Designed for teams that value clarity and speed"
-    text="A clean interface, powerful features, and thoughtful details come together to help your team move faster—without sacrificing quality."
+  <Fragment slot="designed"><GalleryText
+    title={bcms(bcmsHome, "designed-h2-designed-for-teams-that", "Designed for teams that value clarity and speed")}
+    text={bcms(bcmsHome, "designed-p-a-clean-interface-powerful", "A clean interface, powerful features, and thoughtful details come together to help your team move faster—without sacrificing quality.")}
     cta={{
       title: "Try It Today",
       url: "#",
@@ -92,9 +96,9 @@ import logo8 from "../assets/logoipsum-331.svg";
       "Trusted by Professionals",
       "Simple, Transparent Pricing",
     ]}
-  />
+  /></Fragment>
 
-  <Statements
+  <Fragment slot="for"><Statements
     items={[
       {
         title: "For modern teams",
@@ -109,9 +113,9 @@ import logo8 from "../assets/logoipsum-331.svg";
         text: "Less busywork, more progress—so you can deliver meaningful results consistently.",
       },
     ]}
-  />
+  /></Fragment>
 
-  <TextMarquee
+  <Fragment slot="sec2"><TextMarquee
     class="marquee"
     texts={[
       "Creative Firepower",
@@ -119,11 +123,11 @@ import logo8 from "../assets/logoipsum-331.svg";
       "Trusted by Professionals",
       "Simple, Transparent Pricing",
     ]}
-  />
+  /></Fragment>
 
-  <Plans
-    title="Plans & Pricing"
-    subtitle="Start for free, upgrade when you’re ready. No hidden fees, no long-term commitments."
+  <Fragment slot="plans"><Plans
+    title={bcms(bcmsHome, "plans-h2-plans-pricing", "Plans & Pricing")}
+    subtitle={bcms(bcmsHome, "plans-p-start-for-free-upgrade", "Start for free, upgrade when you’re ready. No hidden fees, no long-term commitments.")}
     items={[
       {
         title: "Free Plan",
@@ -162,12 +166,12 @@ import logo8 from "../assets/logoipsum-331.svg";
         ],
       },
     ]}
-  />
+  /></Fragment>
 
-  <Faqs
+  <Fragment slot="group-who-is-this-platform"><Faqs
     title="Frequently Asked Questions"
     mobileTitle="FAQs"
-    subtitle="Quick answers to the most common questions."
+    subtitle={bcms(bcmsHome, "p-quick-answers-to-the", "Quick answers to the most common questions.")}
     items={[
       {
         question: "Who is this platform for?",
@@ -195,9 +199,9 @@ import logo8 from "../assets/logoipsum-331.svg";
           "Premium users receive guided onboarding and priority support to ensure a smooth start.",
       },
     ]}
-  />
+  /></Fragment>
 
-  <ImageMarquee
+  <Fragment slot="designed-6"><ImageMarquee
     images={[
       {
         src: logo1.src,
@@ -232,10 +236,11 @@ import logo8 from "../assets/logoipsum-331.svg";
         alt: "Logo 7",
       },
     ]}
-  />
+  /></Fragment>
 
-  <GL />
-  <GLPlaces />
+  <Fragment slot="sec8"><GL /></Fragment>
+  <Fragment slot="sec10"><GLPlaces /></Fragment>
+  </BcmsSections>
 </Layout>
 
 <style>

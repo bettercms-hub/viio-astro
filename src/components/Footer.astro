@@ -1,4 +1,6 @@
 ---
+import bcmsHome from "../../bcms-content/home.json";
+import { bcms, bcmsStyleText } from "../bcms-content";
 import Logo from "../assets/logo.svg";
 import type { Link } from "../types";
 
@@ -35,7 +37,7 @@ const { logoUrl, logoAlt, links } = Astro.props;
       </div>
       <!-- Please don't remove this -->
       <div class="credit">
-        <a href="https://hashemian.me/">Created by Sijad</a>
+        <a href={bcms(bcmsHome, "footer-a-created-by-sijad-href", "https://hashemian.me/")} data-bcms-field="footer-a-created-by-sijad" data-bcms-kind="text" data-bcms-props="footer-a-created-by-sijad-href|text|href" data-bcms-style="2" style={bcmsStyleText(bcmsHome, "footer-a-created-by-sijad")}>{bcms(bcmsHome, "footer-a-created-by-sijad", "Created by Sijad")}</a>
       </div>
     </div>
   </footer>

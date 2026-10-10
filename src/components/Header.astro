@@ -1,4 +1,6 @@
 ---
+import bcmsHome from "../../bcms-content/home.json";
+import { bcms, bcmsStyleText } from "../bcms-content";
 import Button from "./Button.astro";
 import Logo from "../assets/logo.svg";
 import type { Link } from "../types";
@@ -46,7 +48,7 @@ const { logoUrl, logoAlt, link1, link2, links } = Astro.props;
           {link2 ? <Button {...link2} revealable={false} /> : null}
 
           <button type="button" class="toggle" aria-label="">
-            <span class="u-sr-only">Toggle Mobile Menu</span>
+            <span class="u-sr-only" data-bcms-field="nav-span-toggle-mobile-menu" data-bcms-kind="text" data-bcms-style="2" style={bcmsStyleText(bcmsHome, "nav-span-toggle-mobile-menu")}>{bcms(bcmsHome, "nav-span-toggle-mobile-menu", "Toggle Mobile Menu")}</span>
             <span aria-hidden>
               <span></span>
               <span></span>
